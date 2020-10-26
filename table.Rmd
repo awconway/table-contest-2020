@@ -25,9 +25,12 @@ data <- readr::read_csv("sr_data.csv")
 
 
 ```{r include=TRUE}
+
+# Code in this chunk is reformatting the dataframe in preparation for display in the table
+
 data <- data %>% 
     dplyr::arrange(study) %>% 
-    tidyr::separate(study, c("Study", "Year"), sep = " ")  %>% # makes seprate columns for year and first author (study)
+    tidyr::separate(study, c("Study", "Year"), sep = " ")  %>% # makes separate columns for year and first author (study)
     dplyr::arrange(-as.numeric(Year)) %>% # arrange the table so that studies from most recent years are first
     dplyr::mutate(perc_male = round((male/(female+male))*100, 1)) %>% #makes a column with the percentage of males from two columns that have the total number of male and females included in studies
   # this mutate call creates a new column for age using the glue package to achieve different formatting for integrating summary statistics according to whether they were reported as mean (sd), mean (min to max), median [min to max], [min to max] or median [lower IQR, upper IQR].
