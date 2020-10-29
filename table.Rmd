@@ -217,6 +217,7 @@ ft
 ```{r }
 # Apply additional styling for the table in word format
 ft <- ft %>% flextable::fontsize(size = 9) %>% 
+  flextable::font(fontname="Calibri", part = "all") %>%
   #Add header row for the column sections
     flextable::add_header_row(values = c("Study","Participants", "Blood pressure measurements"),  
                    colwidths = c(3, 4 , 6)) %>% 
@@ -279,7 +280,7 @@ ft <- ft %>% flextable::fontsize(size = 9) %>%
     flextable::width(j="Study",width = 0.87) %>%
     flextable::width(j="code",width = 0.59)  %>%
     flextable::width(j="perc_male",width = 1.1)  %>%
-    flextable::width(j="age",width = 0.90) %>%
+    flextable::width(j="age",width = 0.95) %>%
     flextable::width(j="group",width = 0.67) %>%
     flextable::width(j="setting",width = 0.70) %>%
     flextable::width(j="cnap",width = 0.75) %>%
@@ -288,7 +289,9 @@ ft <- ft %>% flextable::fontsize(size = 9) %>%
     flextable::width(j="n1",width = 0.95) %>%
     flextable::width(j="measurements",width = 0.60) %>%
     flextable::width(j="N1",width = 1.30) %>%
-  
+  # set height for top row so it has a bit of padding (need hrule set to exact)
+    flextable::height(i=1, height = 0.3, part = "header") %>% 
+    flextable::hrule(i=1, rule = "exact", part = "header") %>% 
     # footnote for the age column
     flextable::footnote(i =2, j = 5,
              value = flextable::as_paragraph(
